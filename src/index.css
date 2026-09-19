@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+:root {
+  /* MARCA (ambos os temas) */
+  --color-primary: #FF622B;
+  --color-primary-hover: #FF8C5A;
+  --color-primary-active: #CC4A1F;
+  --color-primary-subtle: #FFE0D4;
+  --color-primary-text: #FFFFFF;
+
+  /* TEMA CLARO (light) - Default */
+  --color-bg-base: transparent;
+  --color-bg-surface: rgba(255, 255, 255, 0.7);
+  --color-bg-elevated: rgba(255, 255, 255, 0.85);
+  --color-border: rgba(224, 224, 224, 0.6);
+  --color-border-strong: rgba(192, 192, 192, 0.8);
+  --color-text-primary: #111111;
+  --color-text-secondary: #555555;
+  --color-text-disabled: #AAAAAA;
+
+  /* STATUS (ambos os temas) */
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-info: #3B82F6;
+}
+
+:root.dark {
+  /* TEMA ESCURO (dark) */
+  --color-bg-base: transparent;
+  --color-bg-surface: rgba(20, 20, 20, 0.4);
+  --color-bg-elevated: rgba(30, 30, 30, 0.5);
+  --color-border: rgba(46, 46, 46, 0.4);
+  --color-border-strong: rgba(68, 68, 68, 0.5);
+  --color-text-primary: #F5F5F5;
+  --color-text-secondary: #999999;
+  --color-text-disabled: #555555;
+}
+
+@theme {
+  /* Base Brand Colors */
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-primary-active: var(--color-primary-active);
+  --color-primary-subtle: var(--color-primary-subtle);
+  --color-primary-text: var(--color-primary-text);
+
+  /* Backgrounds */
+  --color-bg-base: var(--color-bg-base);
+  --color-bg-surface: var(--color-bg-surface);
+  --color-bg-elevated: var(--color-bg-elevated);
+
+  /* Borders */
+  --color-border-main: var(--color-border);
+  --color-border-strong: var(--color-border-strong);
+
+  /* Text */
+  --color-text-main: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-disabled: var(--color-text-disabled);
+
+  /* Status */
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-danger: var(--color-danger);
+  --color-info: var(--color-info);
+  
+  --font-display: "Inter", sans-serif;
+  --radius-DEFAULT: 0.75rem;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-display);
+  }
+
+  .bg-bg-surface,
+  .bg-bg-elevated,
+  .bg-bg-base {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.markdown-body h1 { @apply text-2xl font-bold mt-6 mb-4; }
+.markdown-body h2 { @apply text-xl font-bold mt-5 mb-3; }
+.markdown-body h3 { @apply text-lg font-bold mt-4 mb-2; }
+.markdown-body p { @apply mb-4 leading-relaxed; }
+.markdown-body ul { @apply list-disc pl-6 mb-4; }
+.markdown-body ol { @apply list-decimal pl-6 mb-4; }
+.markdown-body li { @apply mb-1; }
+.markdown-body strong { @apply font-bold; }
+.markdown-body blockquote { @apply border-l-4 border-primary/30 pl-4 italic my-4; }
+
+/* Evita o zoom automático de navegadores mobile (especialmente iOS Safari) ao focar em inputs */
+@media screen and (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
