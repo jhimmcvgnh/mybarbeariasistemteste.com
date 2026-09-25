@@ -24,6 +24,7 @@ const LazyReportsModal = React.lazy(() => import('./components/ReportsModal').th
 const LazyAddAccountModal = React.lazy(() => import('./components/AddAccountModal').then(module => ({ default: module.AddAccountModal })));
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { AnimatedBackground } from './components/AnimatedBackground';
+import { PromoModal } from './components/PromoModal';
 
 import { useAuth } from './hooks/useAuth';
 import { useStats, type DateFilterState } from './hooks/useStats';
@@ -50,6 +51,37 @@ export default function App() {
 
   // Lista de contas conhecidas salvas
   const [savedAccounts, setSavedAccounts] = useState<Account[]>([]);
+
+  // Pop-up de Anúncio e Botão CTA da Navbar
+  const [isPromoOpen, setIsPromoOpen] = useState(false);
+  const [showNavbarCta, setShowNavbarCta] = useState(() => {
+    return localStorage.getItem('barber_show_navbar_cta') === 'true';
+  });
+
+  useEffect(() => {
+    // Anúncio pop-up aparece a cada 3 minutos (180.000 ms)
+    // Não aparece imediatamente ao entrar, aguarda 3 minutos
+    const THREE_MINUTES_MS = 3 * 60 * 1000;
+    const timer = setInterval(() => {
+      setIsPromoOpen(true);
+    }, THREE_MINUTES_MS);
+
+    // Helpers globais no console para testes rápidos se necessário
+    (window as any).openPromoModal = () => setIsPromoOpen(true);
+    (window as any).resetPromoModal = () => {
+      localStorage.removeItem('barber_show_navbar_cta');
+      setShowNavbarCta(false);
+      setIsPromoOpen(false);
+    };
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleClosePromo = () => {
+    setIsPromoOpen(false);
+    setShowNavbarCta(true);
+    localStorage.setItem('barber_show_navbar_cta', 'true');
+  };
 
   useEffect(() => {
     if (darkMode) {
@@ -142,6 +174,7 @@ export default function App() {
         onOpenReports={() => setIsReportsModalOpen(true)}
         toggleSidebar={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
         handleLogoutProp={handleLogout}
+        showNavbarCta={showNavbarCta}
       />
       <div className="flex flex-1 overflow-hidden relative">
           <Sidebar 
@@ -368,6 +401,10 @@ export default function App() {
       </div>
 
       {/* Modals */}
+      <PromoModal 
+        isOpen={isPromoOpen} 
+        onClose={handleClosePromo} 
+      />
       <React.Suspense fallback={null}>
         <LazyReportsModal 
           isOpen={isReportsModalOpen} 

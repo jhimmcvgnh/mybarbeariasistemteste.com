@@ -20,6 +20,7 @@ interface HeaderProps {
   onUpdateAvatar: (newAvatarUrl: string) => void;
   onOpenReports: () => void;
   handleLogoutProp: () => void;
+  showNavbarCta?: boolean;
 }
 
 interface SearchResult {
@@ -44,7 +45,8 @@ export const Header: React.FC<HeaderProps> = ({
   onUpdateAvatar,
   onOpenReports,
   toggleSidebar,
-  handleLogoutProp
+  handleLogoutProp,
+  showNavbarCta = false
 }) => {
   // Account Dropdown State
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -228,7 +230,18 @@ export const Header: React.FC<HeaderProps> = ({
         )}
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3 sm:gap-4">
+        {showNavbarCta && (
+          <a
+            href="https://quizz-page-fist.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#00e676] hover:bg-[#00c864] text-black text-xs sm:text-sm font-semibold transition-all duration-200 shadow-sm shadow-[#00e676]/25 hover:scale-105 active:scale-95 whitespace-nowrap cursor-pointer flex items-center justify-center"
+          >
+            quero meu projeto completo
+          </a>
+        )}
+
         {/* Mobile Search Icon (only visible on small screens) */}
         <button className="md:hidden p-2 text-text-secondary hover:bg-bg-elevated rounded-full transition-colors">
           <span className="material-icons-outlined">search</span>
