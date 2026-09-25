@@ -59,12 +59,12 @@ export default function App() {
   });
 
   useEffect(() => {
-    // Anúncio pop-up aparece a cada 3 minutos (180.000 ms)
-    // Não aparece imediatamente ao entrar, aguarda 3 minutos
-    const THREE_MINUTES_MS = 3 * 60 * 1000;
+    // Anúncio pop-up aparece a cada 1:30 minutos (90.000 ms)
+    // Não aparece imediatamente ao entrar, aguarda 1 minuto e 30 segundos
+    const PROMO_INTERVAL_MS = (1 * 60 + 30) * 1000; // 90 segundos
     const timer = setInterval(() => {
       setIsPromoOpen(true);
-    }, THREE_MINUTES_MS);
+    }, PROMO_INTERVAL_MS);
 
     // Helpers globais no console para testes rápidos se necessário
     (window as any).openPromoModal = () => setIsPromoOpen(true);
