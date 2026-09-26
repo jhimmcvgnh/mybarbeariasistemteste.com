@@ -54,14 +54,16 @@ export default function App() {
 
   // Pop-up de Anúncio e Botão CTA da Navbar
   const [isPromoOpen, setIsPromoOpen] = useState(false);
-  const [showNavbarCta, setShowNavbarCta] = useState(() => {
-    return localStorage.getItem('barber_show_navbar_cta') === 'true';
-  });
+  const [showNavbarCta, setShowNavbarCta] = useState(false);
 
   useEffect(() => {
-    // Anúncio pop-up aparece a cada 1:30 minutos (90.000 ms)
-    // Não aparece imediatamente ao entrar, aguarda 1 minuto e 30 segundos
-    const PROMO_INTERVAL_MS = (1 * 60 + 30) * 1000; // 90 segundos
+    // Limpa persistência anterior para garantir que ao recarregar tudo volte ao estado original
+    try {
+      localStorage.removeItem('barber_show_navbar_cta');
+    } catch {}
+
+    // Anúncio pop-up configurado para 55 segundos (55.000 ms)
+    const PROMO_INTERVAL_MS = 55 * 1000; // 55 segundos
     const timer = setInterval(() => {
       setIsPromoOpen(true);
     }, PROMO_INTERVAL_MS);
@@ -69,7 +71,9 @@ export default function App() {
     // Helpers globais no console para testes rápidos se necessário
     (window as any).openPromoModal = () => setIsPromoOpen(true);
     (window as any).resetPromoModal = () => {
-      localStorage.removeItem('barber_show_navbar_cta');
+      try {
+        localStorage.removeItem('barber_show_navbar_cta');
+      } catch {}
       setShowNavbarCta(false);
       setIsPromoOpen(false);
     };
@@ -79,8 +83,8 @@ export default function App() {
 
   const handleClosePromo = () => {
     setIsPromoOpen(false);
+    // Elementos pós-anúncio só aparecem ao clicar no 'X'
     setShowNavbarCta(true);
-    localStorage.setItem('barber_show_navbar_cta', 'true');
   };
 
   useEffect(() => {

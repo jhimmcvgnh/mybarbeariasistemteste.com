@@ -39,14 +39,14 @@ export const PromoModal: React.FC<PromoModalProps> = ({ isOpen, onClose }) => {
               <Crosshair className="size-7 sm:size-8" />
             </div>
 
-            {/* Badge Focus Frame */}
+            {/* Badge jimdev */}
             <div className="px-4 py-1 rounded-full border border-[#00e676]/40 bg-[#00e676]/10 text-[#00e676] text-xs font-semibold tracking-wider">
-              Focus Frame
+              jimdev
             </div>
 
             {/* Main announcement text */}
             <p className="text-sm sm:text-base text-neutral-200 font-normal leading-relaxed max-w-md px-1 sm:px-4">
-              Gostou da experiencia? quer melhorias? um design totalmente novo e personalizado e melhorado? clica no botão abaixo, responda o quiz necessario que não dura nada e ganhe um presente no final por responder!!
+              Gostou da experiência? Quer melhorias? Um design totalmente novo, personalizado e melhorado? Clique no botão abaixo, responda ao quiz necessário que não dura nada e ganhe um presente no final por responder!
             </p>
 
             {/* Bottom Actions Row */}
